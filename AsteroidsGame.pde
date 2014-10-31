@@ -13,7 +13,7 @@ public void setup()
 public void draw() 
 {
   background(0);
-  noStroke();
+/*  noStroke();
   for(int j=0;j<400;j++){
     for (int i=0;i<400;i++){
       fill(i*0.1,j*0.2,i*4);
@@ -21,7 +21,7 @@ public void draw()
       fill(i*0.1,j*0.2,i*4,100);
       rect(i*11,j*11,22,22);
     }
-  }
+  }*/
   for (int i=0; i<starsey.length; i++){
     starsey[i].show();
   }
