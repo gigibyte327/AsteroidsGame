@@ -1,3 +1,19 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class AsteroidsGame extends PApplet {
+
 SpaceShip spacey;
 Stars[] starsey;
 public void setup() 
@@ -16,9 +32,9 @@ public void draw()
   noStroke();
   for(int j=0;j<400;j++){
     for (int i=0;i<400;i++){
-      fill(i*0.1,j*0.2,i*4);
+      fill(i*0.1f,j*0.2f,i*4);
       rect(i*10,j*10,20,20);
-      fill(i*0.1,j*0.2,i*4,100);
+      fill(i*0.1f,j*0.2f,i*4,100);
       rect(i*11,j*11,22,22);
     }
   }
@@ -40,7 +56,7 @@ public void keyPressed(){
     spacey.accelerate(-1);
   }
   if(key== 'd'){
-    spacey.accelerate(0.9);
+    spacey.accelerate(0.9f);
   }
   if(key == 'w'){
     spacey.rotate(-15);
@@ -202,3 +218,12 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   }   
 } 
 
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "AsteroidsGame" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
+}
