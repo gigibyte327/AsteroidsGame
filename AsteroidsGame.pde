@@ -12,7 +12,10 @@ public void setup()
     starsey[i]=new Stars();
   }
   for (int i=0;i<asters.length;i++){
-    asters[i]=new Asteroids();
+    asters[i]=new Asteroids((int)(Math.random()*5)-3);
+    asters[i].setDirectionX(Math.random()*2-1);
+    asters[i].setDirectionY(Math.random()*2-1);
+    
   }
 }
 public void draw() 
@@ -106,7 +109,8 @@ class Stars extends Floater{
 }
 class Asteroids extends Floater{
   private int rotSpeed;
-  public Asteroids(){
+  public Asteroids(int rsp){
+    rotSpeed=rsp;
     corners = 9;
     xCorners = new int [corners];
     yCorners = new int [corners];
