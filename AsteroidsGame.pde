@@ -50,7 +50,7 @@ public void keyPressed(){
     spacey.setDirectionX(0);
     spacey.setDirectionY(0);
   }
-  if(key == 'a'){
+  if(key == 'a' ){
     spacey.accelerate(-1);
   }
   if(key== 'd'){
