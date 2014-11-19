@@ -16,22 +16,20 @@ public class AsteroidsGame extends PApplet {
 
 SpaceShip spacey;
 Stars[] starsey;
-Asteroids[] asters;
+ArrayList <Asteroids> asters = new ArrayList<Asteroids>();
 public void setup() 
 {
   size(400,400);
   background(0);
-  asters = new Asteroids[10];
   spacey = new SpaceShip();
   starsey= new Stars [100];
   for (int i=0; i<starsey.length; i++){
     starsey[i]=new Stars();
   }
-  for (int i=0;i<asters.length;i++){
-    asters[i]=new Asteroids((int)(Math.random()*5)-3);
-    asters[i].setDirectionX(Math.random()*2-1);
-    asters[i].setDirectionY(Math.random()*2-1);
-    
+  for (int i=0;i<10;i++){
+    asters.add(new Asteroids((int)(Math.random()*15)-7));
+    asters.get(i).setDirectionX(Math.random()*2-1);
+    asters.get(i).setDirectionY(Math.random()*2-1);
   }
 }
 public void draw() 
@@ -50,10 +48,15 @@ public void draw()
   for (int i=0; i<starsey.length; i++){
     starsey[i].show();
   }
-  for (int i = 0; i<asters.length;i++){
-    asters[i].move();
-    asters[i].show();
+  for(int i=0; i<asters.size();i++){
+    asters.get(i).move();
+    asters.get(i).show();
   }
+  /*for (Asteroids temp: asters){
+    asters.get(temp).move();
+    asters.get(temp).show();
+  }*/
+
   spacey.move();
   spacey.show();
 
@@ -66,7 +69,7 @@ public void keyPressed(){
     spacey.setDirectionX(0);
     spacey.setDirectionY(0);
   }
-  if(key == 'a'){
+  if(key == 'a' ){
     spacey.accelerate(-1);
   }
   if(key== 'd'){
