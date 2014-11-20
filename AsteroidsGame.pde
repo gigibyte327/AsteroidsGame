@@ -32,14 +32,16 @@ public void draw()
   for (int i=0; i<starsey.length; i++){
     starsey[i].show();
   }
-  for(int i=0; i<asters.size();i++){
-    asters.get(i).move();
-    asters.get(i).show();
+  for (Asteroids a: asters){
+    a.move();
+    a.show();
   }
-  /*for (Asteroids temp: asters){
-    asters.get(temp).move();
-    asters.get(temp).show();
-  }*/
+  for(int i=0; i<asters.size();i++){
+    if( dist(spacey.getX(), spacey.getY(), asters.get(i).getX(), asters.get(i).getY())<=20){
+      asters.remove(i);
+      i--;
+    }
+  }
 
   spacey.move();
   spacey.show();
