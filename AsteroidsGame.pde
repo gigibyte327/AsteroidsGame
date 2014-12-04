@@ -45,11 +45,15 @@ public void draw()
   }
   for(int i=0; i<asters.size();i++){
     for(int j=0;j<bullet.size();j++){
-       if(dist(bullet.get(j).getX(), bullet.get(j).getY(), asters.get(i).getX(), asters.get(i).getY())<=20){
+      if(bullet.get(j).getO()==true){
+          bullet.remove(j);
+        }
+      else if(dist(bullet.get(j).getX(), bullet.get(j).getY(), asters.get(i).getX(), asters.get(i).getY())<=20){
           asters.remove(i);
+          i--;
           bullet.remove(j);
           j--;
-          i--;
+          
         }
       }
     }
@@ -86,6 +90,7 @@ public void keyPressed(){
 }
 class Bullets extends Floater{
   double dRadians;
+  boolean off;
   public Bullets(SpaceShip theShip){
     myColor=255;
     myCenterX=theShip.getX();
@@ -94,6 +99,7 @@ class Bullets extends Floater{
     dRadians = myPointDirection*(Math.PI/180);
     myDirectionX= 5 * Math.cos(dRadians) + myDirectionX;
     myDirectionY= 5 * Math.sin(dRadians) + myDirectionY;
+    off=false;
   }
   public void setX(int x){myCenterX=x;}  
   public int getX(){return (int)myCenterX;}   
@@ -105,12 +111,23 @@ class Bullets extends Floater{
   public double getDirectionY(){return myDirectionY;}
   public void setPointDirection(int degrees){myPointDirection=degrees;}   
   public double getPointDirection(){return myPointDirection;}
+  public void setO(boolean sc){off=sc;}
+  public boolean getO(){return off;}
   public void show(){
     fill(myColor);
     ellipse((int)myCenterX,(int)myCenterY,10,10);
   }
-  //public void move(){
-  //}
+  public void move(){
+    myCenterX += myDirectionX;    
+    myCenterY += myDirectionY; 
+    if(myCenterX>400||myCenterX<0){
+      off=true;
+    }
+    if(myCenterY>400||myCenterY<0){
+      off=true;
+    }
+
+  }
 }
 class Stars extends Floater{
   public Stars(){
