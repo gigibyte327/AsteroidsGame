@@ -50,10 +50,7 @@ public void draw()
         }
       else if(dist(bullet.get(j).getX(), bullet.get(j).getY(), asters.get(i).getX(), asters.get(i).getY())<=20){
           asters.remove(i);
-          i--;
-          bullet.remove(j);
-          j--;
-          
+          bullet.remove(j);   
         }
       }
     }
