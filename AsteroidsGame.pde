@@ -1,12 +1,14 @@
 SpaceShip spacey;
 Stars[] starsey;
 ArrayList <Asteroids> asters = new ArrayList<Asteroids>();
+ArrayList <Bullets> bullet;
 public void setup() 
 {
   size(400,400);
   background(0);
   spacey = new SpaceShip();
   starsey= new Stars [100];
+  bullet = new ArrayList<Bullets>();
   for (int i=0; i<starsey.length; i++){
     starsey[i]=new Stars();
   }
@@ -15,6 +17,7 @@ public void setup()
     asters.get(i).setDirectionX(Math.random()*2-1);
     asters.get(i).setDirectionY(Math.random()*2-1);
   }
+  
 }
 public void draw() 
 {
@@ -36,16 +39,25 @@ public void draw()
     a.move();
     a.show();
   }
-  for(int i=0; i<asters.size();i++){
-    if( dist(spacey.getX(), spacey.getY(), asters.get(i).getX(), asters.get(i).getY())<=20){
-      asters.remove(i);
-      i--;
-    }
+  for(int i=0; i<bullet.size();i++){
+    bullet.get(i).move();
+    bullet.get(i).show();
   }
+  for(int i=0; i<asters.size();i++){
+    for(int j=0;j<bullet.size();j++){
+       if(dist(bullet.get(j).getX(), bullet.get(j).getY(), asters.get(i).getX(), asters.get(i).getY())<=20){
+          asters.remove(i);
+          bullet.remove(j);
+          j--;
+          i--;
+        }
+      }
+    }
 
   spacey.move();
   spacey.show();
 
+  
 }
 public void keyPressed(){
   if(key == 'h'){
@@ -67,7 +79,38 @@ public void keyPressed(){
   if(key == 's'){
     spacey.rotate(14);
   }
+  if(key == 'b'){
+    bullet.add(new Bullets(spacey));
+  }
 
+}
+class Bullets extends Floater{
+  double dRadians;
+  public Bullets(SpaceShip theShip){
+    myColor=255;
+    myCenterX=theShip.getX();
+    myCenterY=theShip.getY();
+    myPointDirection=theShip.getPointDirection();
+    dRadians = myPointDirection*(Math.PI/180);
+    myDirectionX= 5 * Math.cos(dRadians) + myDirectionX;
+    myDirectionY= 5 * Math.sin(dRadians) + myDirectionY;
+  }
+  public void setX(int x){myCenterX=x;}  
+  public int getX(){return (int)myCenterX;}   
+  public void setY(int y){myCenterY=y;}   
+  public int getY(){return (int)myCenterY;}   
+  public void setDirectionX(double x){myDirectionX=x;}   
+  public double getDirectionX() {return myDirectionX;}
+  public void setDirectionY(double y){myDirectionY=y;}   
+  public double getDirectionY(){return myDirectionY;}
+  public void setPointDirection(int degrees){myPointDirection=degrees;}   
+  public double getPointDirection(){return myPointDirection;}
+  public void show(){
+    fill(myColor);
+    ellipse((int)myCenterX,(int)myCenterY,10,10);
+  }
+  //public void move(){
+  //}
 }
 class Stars extends Floater{
   public Stars(){
